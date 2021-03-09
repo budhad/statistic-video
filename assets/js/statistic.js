@@ -1,8 +1,5 @@
 (function($) {
-  // console.log('////////////////////');
-  // $('body').on('click', function(e){
-  //   console.log(e.target);
-  // });
+
   const AppStatistic = {
     init: function () {
       const that = this;
@@ -12,18 +9,15 @@
       that.getFormatDate();
     },
     getFormatDate: function(date = new Date()) {
-      console.log(date.getMonth()+1);
       let result = date.getFullYear().toString();
       result += '-' + (date.getMonth()+1 < 10 ? '0' : '');
       result += date.getMonth()+1;
       result += '-' + (date.getDate() < 10 ? '0' : '');
       result += date.getDate().toString();
-      console.log(result);
       return result;
     },
     registerVideoEvents: function(that) {
       let $video = $('figure');
-      console.log($video);
 
       $video.each(function(){
         console.log( '$(this).find("video").length', $(this).find('video').length );
@@ -39,8 +33,7 @@
             value: JSON.stringify({ time : this.currentTime}),
             date: dateStr
           }
-          // console.log( date.getDate() > 10 );
-          // console.log( dateStr );
+        
           that.sendStat(stat);
         })
         // воспроизведение завершено.
@@ -72,8 +65,7 @@
       })
     },
     sendStat: function(stat = {}) {
-      console.log(stat);
-      console.log('send lengthh: ', Object.keys(stat).length);
+
       if ( !Object.keys(stat).length ) return;
 
       
@@ -89,7 +81,7 @@
       };
 
       data = Object.assign(data, stat);
-      // console.log(data);
+
       $.ajax({
           type: "POST",
           url: ajax.url,
@@ -105,5 +97,5 @@
     }
   };
   AppStatistic.init();
-  // console.log('linked statistik');
+  
 })(jQuery);
